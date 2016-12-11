@@ -5,9 +5,10 @@ module V1
     def create
       @order = Order.new(user_param)
       if @order.save
+        response.header['Location'] = "http://localhost:3000/v1/order/#{@order.id}"
         render json: @order, serializer: V1::OrderSerializer, root: nil
       else
-        render json: { error: t('user_create_error') }, status: :unprocessable_entity
+        render json: { error: 'could not create order' }, status: :unprocessable_entity
       end
     end
 
@@ -20,7 +21,11 @@ module V1
     end
 
     def show
-      render json: @order, serializer: V1::OrderSerializer, root: nil
+      if Order.exists?(params[:id])
+        render json: Order.find(params[:id]), serializer: V1::OrderSerializer, root: nil
+      else
+        render json: { error: 'cannot find order' }, status: :unprocessable_entity
+      end
     end
 
     private
