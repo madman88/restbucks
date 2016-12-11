@@ -1,13 +1,14 @@
 module V1
   class OrderController < ApplicationController
+    skip_before_action :authenticate, only: [:create]
 
     def create
-        @order = Order.new(user_param)
-        if @order.save
-          render json: @order, serializer: V1::OrderSerializer, root: nil
-        else
-          render json: { error: t('user_create_error') }, status: :unprocessable_entity
-        end
+      @order = Order.new(user_param)
+      if @order.save
+        render json: @order, serializer: V1::OrderSerializer, root: nil
+      else
+        render json: { error: t('user_create_error') }, status: :unprocessable_entity
+      end
     end
 
     def destroy
@@ -19,7 +20,7 @@ module V1
     end
 
     def show
-      render json: Order.find(params[:id]), serializer: V1::OrderSerializer, root: nil
+      render json: @order, serializer: V1::OrderSerializer, root: nil
     end
 
     private
