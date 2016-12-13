@@ -15,12 +15,12 @@ class ApplicationController < ActionController::API
 
   def authenticate_token
     authenticate_with_http_token do |token, options|
-      @order = Order.find_by(access_token: token)
+      Order.find_by(access_token: token)
     end
   end
 
   def render_unauthorized(realm = "Application")
     self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
-    render json: 'Bad credentials', status: :unauthorized
+    render json: { error: 'Bad credentials' }, status: :unauthorized
   end
 end

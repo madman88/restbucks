@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise',  '~> 4.2.0'
 gem "active_model_serializers", '~> 0.9.0'
 gem 'rack-attack', '~>5.0.1'
+gem 'rack-cors', '~>0.4.0'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
