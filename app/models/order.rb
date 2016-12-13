@@ -1,6 +1,8 @@
 class Order < ApplicationRecord
   # Assign an API key on create
   before_create :set_auth_token
+  validates :name, :size, :milk, presence: true
+  validates :quantity, numericality: { only_integer: true }
 
   private
   def set_auth_token

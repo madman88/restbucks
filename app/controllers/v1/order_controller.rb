@@ -14,7 +14,7 @@ module V1
 
     def destroy
       params.require(:id)
-      render json: Order.delete(params[:id]), serializer: V1::OrderSerializer, root: nil
+      render json: Order.delete(params[:id])
     end
 
     def update
@@ -27,7 +27,7 @@ module V1
     def show
       params.require(:id)
       if Order.exists?(params[:id])
-        render json: Order.find(params[:id]), serializer: V1::OrderSerializer, root: nil
+        render json: Order.find(params[:id])
       else
         render json: { error: 'cannot find order' }, status: :unprocessable_entity
       end
@@ -38,7 +38,7 @@ module V1
     def display(action)
       if @order.save
         response.header['Location'] = "http://localhost:3000/v1/order/#{@order.id}"
-        render json: @order, serializer: V1::OrderSerializer, root: nil
+        render json: @order
       else
         render json: { error: "could not #{action} order" }, status: :unprocessable_entity
       end
