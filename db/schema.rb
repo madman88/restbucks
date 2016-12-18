@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161210234754) do
+ActiveRecord::Schema.define(version: 20161218184905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,12 @@ ActiveRecord::Schema.define(version: 20161210234754) do
     t.string  "size",                     null: false
     t.string  "payment",                  null: false
     t.string  "access_token"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name", limit: 255, null: false
   end
 
 end
